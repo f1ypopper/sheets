@@ -1,0 +1,14 @@
+{
+  "name": "sheets",
+  "version": "0.1.0",
+  "files": [
+    "sheets_bg.wasm",
+    "sheets.js",
+    "sheets.d.ts"
+  ],
+  "module": "sheets.js",
+  "types": "sheets.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
