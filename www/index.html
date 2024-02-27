@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <h1 id="test"></h1>
+        <script type="module">
+            import init, {Sheet} from './pkg/sheets.js';
+            await init();
+            let sheet = new Sheet(10, 10);
+            document.getElementById("test").innerText = sheet.get(0,0);
+            console.log(sheet.get(0,0));
+        </script>
+    </body>
+</html>
