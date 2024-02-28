@@ -12,7 +12,7 @@ impl Sheet{
 
     #[wasm_bindgen(constructor)]
     pub fn new(nrows: usize, ncols: usize)->Self{
-        Self{nrows, ncols, data: vec![vec![String::from("HELLO FROM WASM!"); ncols]; nrows]}
+        Self{nrows, ncols, data: vec![vec![String::new(); ncols]; nrows]}
     }
 
     pub fn get(&self, row: usize, col: usize) -> Option<String>{

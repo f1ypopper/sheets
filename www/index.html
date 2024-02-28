@@ -1,11 +1,26 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1 id="test"></h1>
-        <script type="module">
-            import init, {Sheet} from './pkg/sheets.js';
-            await init();
-            let sheet = new Sheet(10, 10);
-            document.getElementById("test").innerText = sheet.get(0,0);
-        </script>
-    </body>
+<style>
+
+</style>
+
+<head>
+  <meta charset="utf-8">
+  <link href="style.css" rel="stylesheet">
+  <title>Sheets</title>
+</head>
+
+<body>
+  <table id="status" class="status">
+    <tr>
+      <td id="status_current_cell" class="status_current_cell"></td>
+      <td id="status_current_cell_value" class="status_current_cell_value"></td>
+    </tr>
+  </table>
+  <table id="grid">
+    <!--<tr id="col_heads"></tr>-->
+  </table>
+  <script src="./index.js" type="module"></script>
+</body>
+
 </html>
