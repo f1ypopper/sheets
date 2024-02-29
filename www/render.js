@@ -26,7 +26,14 @@ function addCol(row, rindex, cindex, direction) {
     let cell = row.insertCell(direction);
     cell.id = toLabel(rindex, cindex);
     cell.className = 'cell';
-    cell.innerText = sheet.get(rindex, cindex);
+    //cell.innerText = sheet.get(rindex, cindex);
+    let cellInput = document.createElement("input");
+    cellInput.id = toLabel(rindex, cindex) + "_input";
+    cellInput.setAttribute("type", "text");
+    cellInput.setAttribute("disabled", "");
+    cellInput.className = "cell-input";
+    cellInput.value = sheet.get(rindex,cindex);
+    document.getElementById(toLabel(rindex, cindex)).appendChild(cellInput);
 }
 
 function addRow(rindex, direction) {
@@ -77,7 +84,14 @@ async function renderRight(start, end) {
             let cell = row.insertCell();
             cell.id = toLabel(r, c);
             cell.className = 'cell';
-            cell.innerText = sheet.get(r, c);
+            //cell.innerText = sheet.get(r, c);
+            let cellInput = document.createElement("input");
+            cellInput.id = toLabel(r, c) + "_input";
+            cellInput.setAttribute("type", "text");
+            cellInput.setAttribute("disabled", "");
+            cellInput.className = "cell-input";
+            cellInput.value = sheet.get(r,c);
+            document.getElementById(toLabel(r, c)).appendChild(cellInput);
         }
     }
 }
@@ -89,7 +103,14 @@ async function renderLeft(start, end) {
             let cell = row.insertCell(0);
             cell.id = toLabel(r, c);
             cell.className = 'cell';
-            cell.innerText = sheet.get(r, c);
+            //cell.innerText = sheet.get(r, c);
+            let cellInput = document.createElement("input");
+            cellInput.id = toLabel(r, c) + "_input";
+            cellInput.setAttribute("type", "text");
+            cellInput.setAttribute("disabled", "");
+            cellInput.className = "cell-input";
+            cellInput.value = sheet.get(r,c);
+            document.getElementById(toLabel(r, c)).appendChild(cellInput);
         }
     }
 }
@@ -139,6 +160,13 @@ export function render(currentRow, currentCol) {
     cEnd = Math.min(colOffset + displayableCols, ncols);
     rStart = rowOffset;
     rEnd = Math.min(rowOffset + displayableRows, nrows);
+
+    if(cStart+displayableCols>cEnd){
+        cStart = cEnd-displayableCols;
+    }
+    if(rStart+displayableRows>rEnd){
+        rStart = rEnd-displayableRows;
+    }
     renderBottom(rStart, rEnd);
 }
 

@@ -29,3 +29,7 @@ export function colNum2Label(col) {
 export function toLabel(row, col){
     return colNum2Label(col)+row;
 }
+
+export function getValue(row, col){
+    return document.getElementById(toLabel(row, col)+"_input");
+}
