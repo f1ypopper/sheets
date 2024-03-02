@@ -1,8 +1,8 @@
 import { modeInsert } from "./insert.js";
-import {render, checkColBounds, checkRowBounds} from "./render.js";
-import { toLabel,getValue } from "./utils.js";
-import {Selection} from "./selection.js";
-import { renderVisual,clearVisual } from "./visual.js";
+import { render, checkColBounds, checkRowBounds } from "./render.js";
+import { toLabel, getValue } from "./utils.js";
+import { Selection } from "./selection.js";
+import { renderVisual, clearVisual } from "./visual.js";
 export async function modeNormal(ev) {
     if (ev.key == 'j') {
         document.getElementById(toLabel(currentRow, currentCol)).className = 'cell';
@@ -30,14 +30,31 @@ export async function modeNormal(ev) {
         render(currentRow, currentRow);
     } else if (ev.key == 'i') {
         window.mode = "INSERT";
-    } else if(ev.key == 'x'){
+    } else if (ev.key == 'x') {
         window.clipboard = window.sheet.get(currentRow, currentCol);
         window.sheet.put(currentRow, currentCol, '');
         render(currentRow, currentCol);
-    }else if (ev.key == 'y'){
-        window.clipboard = window.sheet.get(currentRow, currentCol);
-    }else if(ev.key == 'p'){
-        window.sheet.put(currentRow, currentCol, window.clipboard);
+    } else if (ev.key == 'y') {
+        window.clipboard = [];
+        if(isVisual){
+            for(let r = window.selection.startRow; r <= window.selection.endRow; r++){
+                let values = [];
+                for(let c = window.selection.startCol; c <= window.selection.endCol; c++){
+                    values.push(window.sheet.get(r,c));
+                }
+                window.clipboard.push(values);
+            }
+            isVisual = false;
+            clearVisual();
+        }else{
+            window.clipboard.push(window.sheet.get(currentRow, currentCol));
+        }
+    } else if (ev.key == 'p') {
+        for(let r = 0; r < window.clipboard.length; r++){
+            for(let c = 0; c < window.clipboard[0].length; c++){
+                window.sheet.put(currentRow+r,currentCol+c, window.clipboard.at(r).at(c));
+            }
+        }
         render(currentRow, currentCol);
     }
     else if (ev.key == 'v') {
@@ -51,4 +68,5 @@ export async function modeNormal(ev) {
             clearVisual();
         }
     }
+    
 }

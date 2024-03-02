@@ -12,7 +12,7 @@ window.ncols = 100;
 window.isVisual = false;
 window.selection = null;
 window.mode = "NORMAL";
-window.clipboard = '';
+window.clipboard = [];
 const modeTable = {"NORMAL": modeNormal, "INSERT": modeInsert};
 let statusCell = document.getElementById('status_current_cell');
 let statusValue = document.getElementById('status_current_cell_value');
@@ -42,14 +42,14 @@ async function handleKeyPress(ev) {
         ev.preventDefault();
     }
     await modeTable[window.mode](ev);
-    updateCurrent();
-    updateStatusBar();
     if (isVisual) {
         clearVisual();
         window.selection.endRow = currentRow;
         window.selection.endCol = currentCol;
         renderVisual();
     }
+    updateCurrent();
+    updateStatusBar();
 }
 
 function stickyScroll() {
